@@ -9,8 +9,29 @@ const mixedMessages = {
     '“It is only when we take chances, when our lives improve. The initial and the most difficult risk that we need to take is to become honest. —Walter Anderson',
     '“Nature has given us all the pieces required to achieve exceptional wellness and health, but has left it to us to put these pieces together.”—Diane McLaren'],
   _questionOfDayArray: ['What will you be doing today', 'What\'s planned for today', 'What are you excited for today', 'How would you like to start your day', 'What are you grateful for today'],
-  _adjectivesArray: ["good", "excellent", "glorious", "amazing", 'beautiful', 'glamorous', 'radiant', 'breathtaking', 'stunning', 'charming', 'delightful', 'gorgeous', 'exquisite']
+  _adjectivesArray: ["good", "excellent", "glorious", "amazing", 'beautiful', 'glamorous', 'radiant', 'breathtaking', 'stunning', 'charming', 'delightful', 'gorgeous', 'exquisite'],
+  get motivation() {
+    return this._motivationArray;
+  },
+  get adjectives() {
+    return this._adjectivesArray;
+  },
+  set motivation(str) {
+    if ((typeof str) = 'string') {
+      this._motivationArray.push(str);
+    } else {
+      console.log('Input a valid motivational phrase string to start the day.');
+    }
+  },
+  set adjectives(str) {
+    if ((typeof str) = 'string') {
+      this._adjectivesArray.push(str);
+    } else {
+      console.log('Input a valid adjective string.');
+    }
+  }
 }
+
 const currentDay = new Date();
 console.log(timeOfDay.getHours());
 const adjectiveIndex = Math.floor(Math.random());

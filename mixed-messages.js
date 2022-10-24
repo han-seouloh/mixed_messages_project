@@ -1,15 +1,15 @@
 const mixedMessages = {
   _timeOfDay: ["morning", "afternoon", "evening"],
-  _greetingsArray: ["hi", "hey", "what's up", "hello", "how's it going?"],
-  _motivationArray: ['“We cannot solve problems with the kind of thinking we employed when we came up with them.” — Albert Einstein',
-    '“Learn as if you will live forever, live like you will die tomorrow.” — Mahatma Gandhi',
-    '“Stay away from those people who try to disparage your ambitions. Small minds will always do that, but great minds will give you a feeling that you can become great too.” — Mark Twain',
-    '“When you give joy to other people, you get more joy in return. You should give a good thought to happiness that you can give out.”— Eleanor Roosevelt',
-    '“When you change your thoughts, remember to also change your world.”—Norman Vincent Peale',
-    '“It is only when we take chances, when our lives improve. The initial and the most difficult risk that we need to take is to become honest. —Walter Anderson',
-    '“Nature has given us all the pieces required to achieve exceptional wellness and health, but has left it to us to put these pieces together.”—Diane McLaren'],
+  _greetingsArray: ["Hi", "Hey", "What's up", "Hello", 'Salutations'],
+  _motivationArray: ['“We cannot solve problems with the kind of thinking we employed when we came up with them.”\n— Albert Einstein',
+    '“Learn as if you will live forever, live like you will die tomorrow.”\n— Mahatma Gandhi',
+    '“Stay away from those people who try to disparage your ambitions. Small minds will always do that, but great minds will give you a feeling that you can become great too.”\n— Mark Twain',
+    '“When you give joy to other people, you get more joy in return. You should give a good thought to happiness that you can give out.”\n— Eleanor Roosevelt',
+    '“When you change your thoughts, remember to also change your world.”\n— Norman Vincent Peale',
+    '“It is only when we take chances, when our lives improve. The initial and the most difficult risk that we need to take is to become honest."\n— Walter Anderson',
+    '“Nature has given us all the pieces required to achieve exceptional wellness and health, but has left it to us to put these pieces together.”\n— Diane McLaren'],
   _questionOfDayArray: ['What will you be doing today', 'What\'s planned for today', 'What are you excited for today', 'How would you like to start your day', 'What are you grateful for today'],
-  _adjectivesArray: ["good", "excellent", "glorious", "amazing", 'beautiful', 'glamorous', 'radiant', 'breathtaking', 'stunning', 'charming', 'delightful', 'gorgeous', 'exquisite', ''],
+  _adjectivesArray: ["good", "excellent", "glorious", "amazing", 'beautiful', 'glamorous', 'radiant', 'breathtaking', 'stunning', 'charming', 'delightful', 'gorgeous', 'exquisite'],
   get timeOfDay() {
     return this._timeOfDay
   },
@@ -25,16 +25,16 @@ const mixedMessages = {
   get adjectives() {
     return this._adjectivesArray;
   },
-  set motivation(str) {
-    if ((typeof str) = 'string') {
-      this._motivationArray.push(str);
+  set motivation(outputMessage) {
+    if (typeof outputMessage === 'string') {
+      this._motivationArray.push(outputMessage);
     } else {
       console.log('Input a valid motivational phrase string to start the day.');
     }
   },
-  set adjectives(str) {
-    if (typeof str === 'string') {
-      this._adjectivesArray.push(str);
+  set adjectives(outputMessage) {
+    if (typeof outputMessage === 'string') {
+      this._adjectivesArray.push(outputMessage);
     } else {
       console.log('Input a valid adjective string.');
     }
@@ -43,17 +43,25 @@ const mixedMessages = {
 
 const mixedMessage = () => {
   const currentTime = new Date();
-  console.log(currentTime.getHours());
-  const adjectiveIndex = Math.floor(Math.random() * mixedMessages.adjectives.length + 1);
+  console.log(currentTime)
+  console.log(currentTime.getHours())
+  const greetingsIndex = Math.floor(Math.random() * mixedMessages.greetings.length)
+  const adjectiveIndex = Math.floor(Math.random() * mixedMessages.adjectives.length);
+  const phraseIndex = Math.floor(Math.random() * mixedMessages.motivation.length);
+  const questionIndex = Math.floor(Math.random() * mixedMessages.question.length);
+  let outputMessage;
 
-  if (currentTime.getHours >= 6|| currentTime.getHours < 12) {
-    const outputMessage = `${mixedMessages.adjectives[adjectiveIndex]} ${mixedMessages.timeOfDay[0]}`;
+  if (currentTime.getHours() >= 6 && currentTime.getHours() < 12) {
+    outputMessage = `${mixedMessages.greetings[greetingsIndex]}, ${mixedMessages.adjectives[adjectiveIndex]} ${mixedMessages.timeOfDay[0]}!\n${mixedMessages.question[questionIndex]}?\nLet's get you started with a motivational phrase.\n${mixedMessages.motivation[phraseIndex]}`;
     
-  } else if (currentTime.getHours >= 12|| currentTime.getHours < 20) {
-    const outputMessage = `${mixedMessages.adjectives[adjectiveIndex]} ${mixedMessages.timeOfDay[1]}`;
+  } else if (currentTime.getHours() >= 12 && currentTime.getHours() < 20) {
+    outputMessage = `${mixedMessages.greetings[greetingsIndex]}, ${mixedMessages.adjectives[adjectiveIndex]} ${mixedMessages.timeOfDay[1]}!\nAnd remember...\n${mixedMessages.motivation[phraseIndex]}`;
+
+  } else if (currentTime.getHours() >= 20 && currentTime.getHours() <= 23 || (currentTime.getHours() >= 0 && currentTime.getHours() < 2)) {
+    outputMessage = `${mixedMessages.greetings[greetingsIndex]}, ${mixedMessages.adjectives[adjectiveIndex]} ${mixedMessages.timeOfDay[2]}!\nLet's finish up, enjoy what remains of the night and rest so you can seize the day tomorrow!\n${mixedMessages.motivation[phraseIndex]}`;
 
   } else {
-    const outputMessage = `${mixedMessages.adjectives[adjectiveIndex]} ${mixedMessages.timeOfDay[2]}`;
+    outputMessage = 'It\'s getting late... You should sleep soon.';
 
   }
 

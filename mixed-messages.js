@@ -1,5 +1,5 @@
 const mixedMessages = {
-  _timeOfDay: ["morning", "afternoon", "evening", "day"],
+  _timeOfDay: ["morning", "afternoon", "evening"],
   _greetingsArray: ["hi", "hey", "what's up", "hello", "how's it going?"],
   _motivationArray: ['“We cannot solve problems with the kind of thinking we employed when we came up with them.” — Albert Einstein',
     '“Learn as if you will live forever, live like you will die tomorrow.” — Mahatma Gandhi',
@@ -9,9 +9,18 @@ const mixedMessages = {
     '“It is only when we take chances, when our lives improve. The initial and the most difficult risk that we need to take is to become honest. —Walter Anderson',
     '“Nature has given us all the pieces required to achieve exceptional wellness and health, but has left it to us to put these pieces together.”—Diane McLaren'],
   _questionOfDayArray: ['What will you be doing today', 'What\'s planned for today', 'What are you excited for today', 'How would you like to start your day', 'What are you grateful for today'],
-  _adjectivesArray: ["good", "excellent", "glorious", "amazing", 'beautiful', 'glamorous', 'radiant', 'breathtaking', 'stunning', 'charming', 'delightful', 'gorgeous', 'exquisite'],
+  _adjectivesArray: ["good", "excellent", "glorious", "amazing", 'beautiful', 'glamorous', 'radiant', 'breathtaking', 'stunning', 'charming', 'delightful', 'gorgeous', 'exquisite', ''],
+  get timeOfDay() {
+    return this._timeOfDay
+  },
+  get greetings() {
+    return this._greetingsArray
+  },
   get motivation() {
     return this._motivationArray;
+  },
+  get question() {
+    return this._questionOfDayArray
   },
   get adjectives() {
     return this._adjectivesArray;
@@ -24,7 +33,7 @@ const mixedMessages = {
     }
   },
   set adjectives(str) {
-    if ((typeof str) = 'string') {
+    if (typeof str === 'string') {
       this._adjectivesArray.push(str);
     } else {
       console.log('Input a valid adjective string.');
@@ -32,6 +41,23 @@ const mixedMessages = {
   }
 }
 
-const currentDay = new Date();
-console.log(timeOfDay.getHours());
-const adjectiveIndex = Math.floor(Math.random());
+const mixedMessage = () => {
+  const currentTime = new Date();
+  console.log(currentTime.getHours());
+  const adjectiveIndex = Math.floor(Math.random() * mixedMessages.adjectives.length + 1);
+
+  if (currentTime.getHours >= 6|| currentTime.getHours < 12) {
+    const outputMessage = `${mixedMessages.adjectives[adjectiveIndex]} ${mixedMessages.timeOfDay[0]}`;
+    
+  } else if (currentTime.getHours >= 12|| currentTime.getHours < 20) {
+    const outputMessage = `${mixedMessages.adjectives[adjectiveIndex]} ${mixedMessages.timeOfDay[1]}`;
+
+  } else {
+    const outputMessage = `${mixedMessages.adjectives[adjectiveIndex]} ${mixedMessages.timeOfDay[2]}`;
+
+  }
+
+  console.log(outputMessage);
+}
+
+mixedMessage();

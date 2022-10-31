@@ -68,4 +68,3 @@ const mixedMessage = () => {
   console.log(outputMessage);
 }
 
-mixedMessage();

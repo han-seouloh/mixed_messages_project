@@ -95,8 +95,9 @@ const mixedMessage = () => {
     outputMessage = 'It\'s getting late... You should sleep soon.';
 
   }
-  console.log(greetingMessage);
-  console.log(outputMessage);
+
+  messageBanner[0].getElementsByTagName('h2')[0].innerHTML = greetingMessage;
+  messageBanner[0].getElementsByTagName('p')[0].innerText = outputMessage;
 }
 
 startButton.onclick = mixedMessage;

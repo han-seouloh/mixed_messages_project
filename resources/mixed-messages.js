@@ -48,15 +48,19 @@ const dayBackground = document.getElementById('day');
 const nightBackground = document.getElementById('night');
 
 setInterval(() => {
-  if (currentTime.getHours >= 8 && currentTime.getHours < 18) {
+  if (currentTime.getHours >= 8 && currentTime.getHours < 19) {
     dayBackground.style.zIndex = '0';
     nightBackground.style.zIndex = '-1';
     console.log(currentTime.getHours);
-  } else {
+  } else if (currentTime.getHours >= 19 && currentTime.getHours < 24) {
     dayBackground.style.zIndex = '-1';
     nightBackground.style.zIndex = '0';
     console.log(currentTime.getHours);
-  }
+  } else if (currentTime.getHours >= 0 && currentTime.getHours < 8) {
+    dayBackground.style.zIndex = '-1';
+    nightBackground.style.zIndex = '0';
+    console.log(currentTime.getHours);
+  } 
 }, 1000);
 
 const startButton = document.getElementById('start');

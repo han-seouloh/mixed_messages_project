@@ -1,3 +1,4 @@
+/*Defining Mixed Messages phrases*/
 const mixedMessages = {
   _timeOfDay: ["morning", "afternoon", "evening"],
   _greetingsArray: ["Hi", "Hey", "What's up", "Hello", 'Salutations'],
@@ -41,30 +42,57 @@ const mixedMessages = {
   }
 }
 
+/*Set Day or Night Background*/
+const currentTime = new Date();
+const dayBackground = document.getElementById('day');
+const nightBackground = document.getElementById('night');
+
+setInterval(() => {
+  if (currentTime.getHours >= 8 && currentTime.getHours < 18) {
+    dayBackground.style.zIndex = '0';
+    nightBackground.style.zIndex = '-1';
+    console.log(currentTime.getHours);
+  } else {
+    dayBackground.style.zIndex = '-1';
+    nightBackground.style.zIndex = '0';
+    console.log(currentTime.getHours);
+  }
+}, 1000);
+
+const startButton = document.getElementById('start');
+const backButton = document.getElementById('back');
+const welcomeBanner = document.getElementsByClassName('banner welcome');
+const messageBanner = document.getElementsByClassName('banner message');
+
+/*Define Mixed Messages function*/
 const mixedMessage = () => {
-  const currentTime = new Date();
   console.log(currentTime)
   console.log(currentTime.getHours())
   const greetingsIndex = Math.floor(Math.random() * mixedMessages.greetings.length)
   const adjectiveIndex = Math.floor(Math.random() * mixedMessages.adjectives.length);
   const phraseIndex = Math.floor(Math.random() * mixedMessages.motivation.length);
   const questionIndex = Math.floor(Math.random() * mixedMessages.question.length);
+  let greetingMessage;
   let outputMessage;
 
   if (currentTime.getHours() >= 6 && currentTime.getHours() < 12) {
-    outputMessage = `${mixedMessages.greetings[greetingsIndex]}, ${mixedMessages.adjectives[adjectiveIndex]} ${mixedMessages.timeOfDay[0]}!\n${mixedMessages.question[questionIndex]}?\nLet's get you started with a motivational phrase.\n${mixedMessages.motivation[phraseIndex]}`;
+    greetingMessage = `${mixedMessages.greetings[greetingsIndex]}, ${mixedMessages.adjectives[adjectiveIndex]} ${mixedMessages.timeOfDay[0]}!`;
+    outputMessage = `${mixedMessages.question[questionIndex]}?\nLet's get you started with a motivational phrase.\n${mixedMessages.motivation[phraseIndex]}`;
     
   } else if (currentTime.getHours() >= 12 && currentTime.getHours() < 20) {
-    outputMessage = `${mixedMessages.greetings[greetingsIndex]}, ${mixedMessages.adjectives[adjectiveIndex]} ${mixedMessages.timeOfDay[1]}!\nAnd remember...\n${mixedMessages.motivation[phraseIndex]}`;
+    greetingMessage = `${mixedMessages.greetings[greetingsIndex]}, ${mixedMessages.adjectives[adjectiveIndex]} ${mixedMessages.timeOfDay[1]}!`;
+    outputMessage = `\nAnd remember...\n${mixedMessages.motivation[phraseIndex]}`;
 
   } else if (currentTime.getHours() >= 20 && currentTime.getHours() <= 23 || (currentTime.getHours() >= 0 && currentTime.getHours() < 2)) {
-    outputMessage = `${mixedMessages.greetings[greetingsIndex]}, ${mixedMessages.adjectives[adjectiveIndex]} ${mixedMessages.timeOfDay[2]}!\nLet's finish up, enjoy what remains of the night and rest so you can seize the day tomorrow!\n${mixedMessages.motivation[phraseIndex]}`;
+    greetingMessage = `${mixedMessages.greetings[greetingsIndex]}, ${mixedMessages.adjectives[adjectiveIndex]} ${mixedMessages.timeOfDay[2]}!`;
+    outputMessage = `Let's finish up, enjoy what remains of the night and rest so you can seize the day tomorrow!\n${mixedMessages.motivation[phraseIndex]}`;
 
   } else {
     outputMessage = 'It\'s getting late... You should sleep soon.';
 
   }
-
+  console.log(greetingMessage);
   console.log(outputMessage);
 }
 
+startButton.onclick = mixedMessage;
